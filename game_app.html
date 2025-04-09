@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jogo Som e Ação</title>
+    <style>
+      body {
+        font-family: "Fantasy";
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+        color: rgb(224, 188, 32);
+      }
+      #initial-screen,
+      #game-play-screen,
+      #challenge-screen {
+        display: none;
+        text-align: center;
+        width: 100%;
+      }
+      #challenge-screen {
+        background-color: black;
+        height: 100vh;
+      }
+      input {
+        margin: 5px;
+        padding: 10px;
+        font-size: 16px;
+        color: black;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      h1 {
+        font-size: 150px;
+      }
+      #greeting-game {
+        font-size: 55px;
+        margin-top: 20px;
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      #restart-button {
+        background-color: blue;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        position: relative;
+        bottom: 20px;
+        right: 20px;
+      }
+      #info-text {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 12px;
+        text-align: center;
+      }
+      #triangle {
+        width: 0;
+        height: 0;
+        border-left: 800px solid transparent;
+        border-right: 30px solid transparent;
+        border-bottom: 12px solid green;
+        position: relative;
+        top: 38%;
+        left: 30%;
+        transform: translate(-50%, -50%);
+        z-index: 900;
+      }
+      #red-triangle {
+        width: 0;
+        height: 0;
+        border-left: 650px solid transparent;
+        border-right: 35px solid transparent;
+        border-bottom: 10px solid rgb(160, 39, 61);
+        position: relative;
+        top: 55%;
+        left: 25%;
+        transform: translate(50%, 50%);
+        z-index: 900;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="initial-screen">
+      <div id="triangle"></div>
+      <div id="red-triangle"></div>
+      <img src="./images/som1.webp" alt="Game Logo" style="max-width: 50%; height: auto; position: absolute; top: 0; left: 50%; transform: translateX(-50%);" />
+      <h1>Jogo Som e Ação</h1>
+      <input type="text" id="playerName" placeholder="Digite seu nome" required />
+      <button onclick="startGame()">Iniciar Jogo</button>
+      <h2 id="greeting" style="display: none"></h2>
+      <div id="info-text">
+        SOFTWARE DE APOIO EDUCACIONAL PARA AUXÍLIO NO TRABALHO COM PORTADORES DO TRANSTORNO DO DÉFICIT DE ATENÇÃO E HIPERATIVIDADE (TDAH) <br />
+        Projeto Integrador UNIVERSIDADE VIRTUAL DO ESTADO DE SÃO PAULO <br />
+        Criado pelo grupo DRP03-PJI110-SALA 002 GRUPO-001
+      </div>
+    </div>
+
+    <div id="game-play-screen">
+      <h2 id="greeting-game" style="display: none"></h2>
+      <h2 style="color: rgb(174, 225, 161); font-weight: bold">
+        1º ► Ouça a música. <br />
+        2° ► Durante a música aperte a tecla "MELODIA" ou a tecla "TOQUE" de acordo com o som. <br />
+        3° ► Monte a sua sequência de ações. <br />
+        4° ► Compare com o PADRÃO SECRETO. <br />
+        5° ► Se estiver correta a sequência, aperte a tecla SIGA PARA O DESAFIO.
+      </h2>
+      <img src="./images/som2.webp" alt="Background GIF" style="max-width: 100%; height: auto; position: absolute; top: 48%; left: 34%; transform: translateX(-50%);" />
+      <button id="instruction-button" style="background-color: red; color: white; font-weight: bold; position: absolute; left: 34%; top: 35%; transform: translate(-50%, -50%);" onclick="showInstructions()">
+        INSTRUÇÃO PARA JOGAR
+      </button>
+      <img src="./images/seta3.gif" alt="Seta" style="position: absolute; bottom: 15px; left: 80%; transform: translateX(-66%); width: 80px;">
+      <button style="position: fixed; bottom: 30px; right: 20px; background-color: blue; color: white; padding: 10px 20px; font-size: 20px; cursor: pointer;" id="challenge-button" onclick="goToChallenge()">
+        SIGA PARA O DESAFIO
+      </button>
+    </div>
+
+    <div id="challenge-screen">
+      <h1 style="color: rgb(155, 239, 30);">Desafio 1</h1>
+      <audio id="challenge-audio" controls autoplay style="margin-top: 20px;">
+        <source src="./som/Adams Family.mp3" type="audio/mpeg">
+        //Seu navegador não suporta o elemento de áudio.
+      </audio>
+      <button style="background-color: red; color: white; font-weight: bold; position: absolute; left: 40%; top: 75%; transform: translate(-50%, -50%); padding: 15px 30px; font-size: 20px;">
+        TOQUE
+      </button>
+      <button style="background-color: blue; color: white; font-weight: bold; position: absolute; left: 60%; top: 75%; transform: translate(-50%, -50%); padding: 15px 30px; font-size: 20px;">
+        MELODIA
+      </button>
+      <img src="./images/espiral.gif" alt="Imagem1" style="position: absolute; bottom: 50px; left: 50px; transform: translateX(1040%); width: 80px;">
+      <img src="./images/martelo.gif" alt="Imagem2" style="position: absolute; bottom: 20px; left: 20px; transform: translateX(400%); width: 130px;">
+      <button style="position: absolute; bottom: 30px; right: 20px; background-color: blue; color: white; padding: 10px 20px; font-size: 20px; cursor: pointer;" onclick="restartGame()">
+        REINICIAR JOGO
+      </button>
+    </div>
+
+    <script>
+        document.getElementById("initial-screen").style.display = "block";
+
+      function startGame() {
+        const playerName = document.getElementById("playerName").value;
+        document.getElementById("greeting").textContent = `Seja bem-vindo ao jogo, ${playerName}!`;
+        document.getElementById("greeting").style.display = "block";
+        document.getElementById("greeting-game").textContent = `Seja bem-vindo ao jogo, ${playerName}!`;
+        document.getElementById("greeting-game").style.display = "block";
+        document.getElementById("initial-screen").style.display = "none";
+        document.getElementById("game-play-screen").style.display = "flex";
+      }
+
+      function restartGame() {
+        document.getElementById("game-play-screen").style.display = "none";
+        document.getElementById("initial-screen").style.display = "block";
+        document.getElementById("challenge-screen").style.display = "none";
+        document.getElementById("playerName").value = "";
+        document.getElementById("greeting").style.display = "none";
+        document.getElementById("greeting-game").style.display = "none";
+      }
+
+      function goToChallenge() {
+        document.getElementById("game-play-screen").style.display = "none";
+        document.getElementById("challenge-screen").style.display = "block";
+
+        const audio = document.getElementById("challenge-audio");
+        let playCount = 0;
+
+        audio.addEventListener('ended', function() {
+          playCount++;
+          if (playCount < 1) {
+            audio.currentTime = 0;
+            audio.play();
+          } else {
+            audio.pause();
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
