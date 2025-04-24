@@ -25,20 +25,120 @@
       #challenge-screen {
         background-color: black;
         height: 100vh;
+        position: relative;
+      }
+
+      #player-name-display {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-family: Fantasy;
+        font-weight: bold;
+        font-size: 20px;
+        color: rgb(224, 188, 32);
+        z-index: 1001;
+        animation: glow 2s infinite alternate;
+      }
+
+      #scoreboard {
+        position: absolute;
+        top: 50px;
+        left: 1150px;
+        font-family: Fantasy;
+        font-weight: bold;
+        font-size: 40px;
+        color: rgb(32, 224, 125);
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 10px 15px;
+        border-radius: 8px;
+        user-select: none;        
+        z-index: 1001;
+      }
+
+      @keyframes glow {
+        0% {
+          text-shadow: 0 0 5px rgb(224, 188, 32);
+          color: rgb(224, 188, 32);
+        }
+        100% {
+          text-shadow: 0 0 20px rgb(255, 215, 0);
+          color: rgb(255, 215, 0);
+        }
+      }
+      #player-name-display {
+        position: absolute;
+        top: 10px;
+        right: 50px;
+        font-family: Fantasy;
+        font-weight: bold;
+        font-size: 50px;     
+        color: rgb(77, 208, 240);
+        z-index: 1001;
       }
       input {
         margin: 5px;
         padding: 10px;
         font-size: 16px;
         color: black;
+        border: 2px solid rgb(224, 188, 32);
+        border-radius: 8px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+      #sequence-table .seq-input {
+        text-align: center;
+        font-weight: bold;
+        font-size: 14px;
+      }
+      input:focus {
+        border-color: rgb(255, 215, 0);
+        box-shadow: 0 0 8px rgb(255, 215, 0);
+        outline: none;
       }
       button {
         padding: 10px 20px;
         font-size: 16px;
         cursor: pointer;
+        background-color: rgb(224, 188, 32);
+        color: black;
+        border: none;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+      button:hover {
+        background-color: rgb(255, 215, 0);
+        transform: scale(1.05);
+      }
+      button:active {
+        transform: scale(0.95);
       }
       h1 {
         font-size: 150px;
+        font-family: 'Black Ops One';
+        animation: colorCycle 5s infinite alternate;
+        cursor: pointer;
+      }
+
+      @keyframes colorCycle {
+        0% {
+          color: #ff0000;
+          text-shadow: 0 0 10px #ff0000;
+        }
+        25% {
+          color: #ff7f00;
+          text-shadow: 0 0 10px #ff7f00;
+        }
+        50% {
+          color: #ffff00;
+          text-shadow: 0 0 10px #ffff00;
+        }
+        75% {
+          color: #00ff00;
+          text-shadow: 0 0 10px #00ff00;
+        }
+        100% {
+          color: #0000ff;
+          text-shadow: 0 0 10px #0000ff;
+        }
       }
       #greeting-game {
         font-size: 55px;
@@ -97,7 +197,7 @@
     <div id="initial-screen">
       <div id="triangle"></div>
       <div id="red-triangle"></div>
-      <img src="./images/som1.webp" alt="Game Logo" style="max-width: 50%; height: auto; position: absolute; top: 0; left: 50%; transform: translateX(-50%);" />
+      <img src="./images/som1.webp" alt="Game Logo" style="max-width: 100%; height: auto; position: absolute; top: 0; left: 50%; transform: translateX(-50%);" />
       <h1>Jogo Som e Ação</h1>
       <input type="text" id="playerName" placeholder="Digite seu nome" required />
       <button onclick="startGame()">Iniciar Jogo</button>
@@ -105,22 +205,33 @@
       <div id="info-text">
         SOFTWARE DE APOIO EDUCACIONAL PARA AUXÍLIO NO TRABALHO COM PORTADORES DO TRANSTORNO DO DÉFICIT DE ATENÇÃO E HIPERATIVIDADE (TDAH) <br />
         Projeto Integrador UNIVERSIDADE VIRTUAL DO ESTADO DE SÃO PAULO <br />
-        Criado pelo grupo DRP03-PJI110-SALA 002 GRUPO-001
+<span style="color: yellow; font-weight: bold;">Criado pelo grupo DRP03-PJI110-SALA 002 GRUPO-001</span>
       </div>
     </div>
 
     <div id="game-play-screen">
+      <audio id="initial-audio" style="display: block; margin: 0 auto 20px auto; width: 300px; height: 40px;" autoplay>
+        <source src="./som/march-of-super.mp3" type="audio/mpeg" />
+        //Seu navegador não suporta o elemento de áudio.
+      </audio>
       <h2 id="greeting-game" style="display: none"></h2>
       <h2 style="color: rgb(174, 225, 161); font-weight: bold">
         1º ► Ouça a música. <br />
-        2° ► Durante a música aperte a tecla "MELODIA" ou a tecla "TOQUE" de acordo com o som. <br />
+        <br />
+        2° ► Durante a música aperte a tecla "TOQUE (#)" para som curto ou a tecla "MELODIA (&)"  <br />
+        som musical, de acordo com o tipo do som que você está ouvindo. <br />
+        <br />
         3° ► Monte a sua sequência de ações. <br />
-        4° ► Compare com o PADRÃO SECRETO. <br />
-        5° ► Se estiver correta a sequência, aperte a tecla SIGA PARA O DESAFIO.
+        <br />
+        4° ► Verifique se a sua sequência digitada está correta. <br />
+        <br />
+        5° ► Se a sua sequência estiver correta, parabéns, então aperte a tecla <br />
+             "SIGA PARA O PRÓXIMO DESAFIO" e boa sorte em um novo DESAFIO!!!.
       </h2>
-      <img src="./images/som2.webp" alt="Background GIF" style="max-width: 100%; height: auto; position: absolute; top: 48%; left: 34%; transform: translateX(-50%);" />
-      <button id="instruction-button" style="background-color: red; color: white; font-weight: bold; position: absolute; left: 34%; top: 35%; transform: translate(-50%, -50%);" onclick="showInstructions()">
-        INSTRUÇÃO PARA JOGAR
+      <img src="./images/som2.webp" alt="Background GIF" style="max-width: 100%; height: auto; position: absolute; top: 58%; left: 36%; transform: translateX(-50%);" />
+      <img src="./images/1566507_d178c.gif" alt="New GIF" style="position: absolute; top: 60%; right: 08%; transform: translateY(-50%);" />
+      <button id="instruction-button" style="background-color: red; color: white; font-weight: bold; position: absolute; left: 35%; top: 26%; font-size: 30px; transform: translate(-50%, -50%);" onclick="showInstructions()">
+        COMO FAÇO PARA JOGAR?
       </button>
       <img src="./images/seta3.gif" alt="Seta" style="position: absolute; bottom: 15px; left: 80%; transform: translateX(-66%); width: 80px;">
       <button style="position: fixed; bottom: 30px; right: 20px; background-color: blue; color: white; padding: 10px 20px; font-size: 20px; cursor: pointer;" id="challenge-button" onclick="goToChallenge()">
@@ -129,26 +240,109 @@
     </div>
 
     <div id="challenge-screen">
-      <h1 style="color: rgb(155, 239, 30);">Desafio 1</h1>
-      <audio id="challenge-audio" controls autoplay style="margin-top: 20px;">
-        <source src="./som/Adams Family.mp3" type="audio/mpeg">
-        //Seu navegador não suporta o elemento de áudio.
+      <div id="player-name-display"></div>
+      <div id="scoreboard">
+        <div><strong>Pontuação:</strong> <span id="score-value">0</span></div>
+        <div><strong>Tempo:</strong> <span id="time-value">00:00</span></div>
+      </div>
+      <h1 id="challenge-title" style="color: rgb(155, 239, 30); font-size: 100px; position: relative; left: 30px;">Desafio 1</h1>
+      
+      <audio id="challenge-audio" controls style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; height: 40px; z-index: 1100; border-radius: 8px; box-shadow: 0 0 10px rgb(224, 188, 32);">
+        <source src="./som/Adams Family.mp3" type="audio/mpeg" />
+        Seu navegador não suporta o elemento de áudio.
       </audio>
-      <button style="background-color: red; color: white; font-weight: bold; position: absolute; left: 40%; top: 75%; transform: translate(-50%, -50%); padding: 15px 30px; font-size: 20px;">
-        TOQUE
-      </button>
-      <button style="background-color: blue; color: white; font-weight: bold; position: absolute; left: 60%; top: 75%; transform: translate(-50%, -50%); padding: 15px 30px; font-size: 20px;">
-        MELODIA
-      </button>
-      <img src="./images/espiral.gif" alt="Imagem1" style="position: absolute; bottom: 50px; left: 50px; transform: translateX(1040%); width: 80px;">
-      <img src="./images/martelo.gif" alt="Imagem2" style="position: absolute; bottom: 20px; left: 20px; transform: translateX(400%); width: 130px;">
-      <button style="position: absolute; bottom: 30px; right: 20px; background-color: blue; color: white; padding: 10px 20px; font-size: 20px; cursor: pointer;" onclick="restartGame()">
-        REINICIAR JOGO
-      </button>
-    </div>
+
+      <img src="./images/espiral.gif" alt="Imagem1" style="position: absolute; bottom: 50px; left: 20px; transform: translateX(1040%); width: 80px;">
+      <img src="./images/martelo.gif" alt="Imagem2" style="position: absolute; bottom: 20px; left: 65px; transform: translateX(400%); width: 130px;">
+
+      <div id="floating-menu">
+        <button id="btn-restart" onclick="restartGame()">Reinicia Jogo</button>
+        <button id="btn-check-sequence" onclick="checkSequence()">Verifica Sequência</button>
+        <button id="btn-next-challenge" onclick="goToNextChallenge()">Siga para Próximo Desafio</button>
+        <button id="btn-exit-game" onclick="exitGame()">Sair do Jogo</button>
+      </div>      
+      <div style="display: flex; align-items: center; gap: 40px; position: relative; top: -5%; left: 20px; transform: translateY(-30%); width: auto;">
+        <table id="secret-sequence-table" style="border-collapse: collapse; user-select: none; width: 10%;">
+          <caption style="color: rgb(224, 188, 32); font-weight: bold; font-size: 25; margin-bottom: 10px;">SEQUÊNCIA SECRETA</caption>
+          <tr><td class="secret-seq-cell">#</td></tr>
+          <tr><td class="secret-seq-cell">#</td></tr>
+          <tr><td class="secret-seq-cell">#</td></tr>
+          <tr><td class="secret-seq-cell">&amp;</td></tr>
+          <tr><td class="secret-seq-cell">&amp;</td></tr>
+          <tr><td class="secret-seq-cell">&amp;</td></tr>
+          <tr><td class="secret-seq-cell">#</td></tr>
+          <tr><td class="secret-seq-cell">#</td></tr>
+          <tr><td class="secret-seq-cell">#</td></tr>
+          <tr><td class="secret-seq-cell">&amp;</td></tr>
+          <tr><td class="secret-seq-cell">&amp;</td></tr>
+          <tr><td class="secret-seq-cell">#</td></tr>
+          <tr><td class="secret-seq-cell">#</td></tr>
+        </table>    
+        <table id="sequence-table" style="border-collapse: collapse; user-select: none; position: relative; top: -5%; left: 20px; transform: translateY(1%); width: auto;">
+          <caption style="color: rgb(224, 188, 32); font-weight: bold; font-size: 25px; margin-bottom: 10px;">SEQUÊNCIA DO JOGADOR</caption>
+          <tr><td><input type="text" maxlength="1" class="seq-input" /></td></tr>
+          <tr><td><input type="text" maxlength="1" class="seq-input" /></td></tr>
+          <tr><td><input type="text" maxlength="1" class="seq-input" /></td></tr>
+          <tr><td><input type="text" maxlength="1" class="seq-input" /></td></tr>
+          <tr><td><input type="text" maxlength="1" class="seq-input" /></td></tr>
+          <tr><td><input type="text" maxlength="1" class="seq-input" /></td></tr>
+          <tr><td><input type="text" maxlength="1" class="seq-input" /></td></tr>
+          <tr><td><input type="text" maxlength="1" class="seq-input" /></td></tr>
+          <tr><td><input type="text" maxlength="1" class="seq-input" /></td></tr>
+          <tr><td><input type="text" maxlength="1" class="seq-input" /></td></tr>
+          <tr><td><input type="text" maxlength="1" class="seq-input" /></td></tr>
+          <tr><td><input type="text" maxlength="1" class="seq-input" /></td></tr>
+          <tr><td><input type="text" maxlength="1" class="seq-input" /></td></tr>
+        </table>
+      </div>
+      <style>
+        #secret-sequence-table .secret-seq-cell {
+          text-align: center;
+          font-weight: bold;
+          font-size: 15px;
+          background-color: black;
+          color: rgb(224, 188, 32);
+          border: 2px solid rgb(224, 188, 32);
+          border-radius: 8px;
+          margin: 2px;
+          width: 30px;
+          height: 30px;
+          user-select: none;
+          line-height: 40px;
+        }
+      </style>
+      <button id="clear-sequence" style="margin-top: 20px; background-color: #dc3545; color: white; font-weight: bold; padding: 6px 20px; border-radius: 8px; border: none; cursor: pointer; transition: background-color 0.3s ease; position: absolute; bottom: 40px; left: 240px;" onclick="clearSequence()">LIMPAR SEQUÊNCIA</button>
+
+      <button id="melodia-button" onclick="melodiaAction()"><strong>MELODIA ( &amp; )</strong></button>
+      <button id="toque-button" onclick="toqueAction()"><strong>TOQUE ( # )</strong></button>
+      </div>
 
     <script>
         document.getElementById("initial-screen").style.display = "block";
+
+        // Request fullscreen on page load for initial screen
+        window.addEventListener('load', () => {
+          const elem = document.documentElement;
+          if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+          } else if (elem.mozRequestFullScreen) { /* Firefox */
+            elem.mozRequestFullScreen();
+          } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+            elem.webkitRequestFullscreen();
+          } else if (elem.msRequestFullscreen) { /* IE/Edge */
+            elem.msRequestFullscreen();
+          }
+
+          const initialAudio = document.getElementById("initial-audio");
+          if (initialAudio) {
+            setTimeout(() => {
+              initialAudio.muted = false;
+              initialAudio.play().catch(() => {
+                // Autoplay might be blocked by browser, handle if needed
+              });
+            }, 3000);
+          }
+        });
 
       function startGame() {
         const playerName = document.getElementById("playerName").value;
@@ -158,6 +352,27 @@
         document.getElementById("greeting-game").style.display = "block";
         document.getElementById("initial-screen").style.display = "none";
         document.getElementById("game-play-screen").style.display = "flex";
+
+        // Play the audio on screen 2 automatically
+        const initialAudio = document.getElementById("initial-audio");
+        if (initialAudio) {
+          initialAudio.muted = false;
+          initialAudio.play().catch(() => {
+            // Autoplay might be blocked by browser, handle if needed
+          });
+        }
+
+        // Request fullscreen mode for the document body
+        const elem = document.documentElement;
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen();
+        } else if (elem.mozRequestFullScreen) { /* Firefox */
+          elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+          elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE/Edge */
+          elem.msRequestFullscreen();
+        }
       }
 
       function restartGame() {
@@ -173,6 +388,24 @@
         document.getElementById("game-play-screen").style.display = "none";
         document.getElementById("challenge-screen").style.display = "block";
 
+        // Request fullscreen mode for the document body
+        const elem = document.documentElement;
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen();
+        } else if (elem.mozRequestFullScreen) { /* Firefox */
+          elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+          elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE/Edge */
+          elem.msRequestFullscreen();
+        }
+
+        const gameAudio = document.getElementById("initial-audio");
+        if (gameAudio) {
+          gameAudio.pause();
+          gameAudio.currentTime = 0;
+        }
+
         const audio = document.getElementById("challenge-audio");
         let playCount = 0;
 
@@ -185,7 +418,233 @@
             audio.pause();
           }
         });
+
+        audio.play();
+
+        // Set player name display on challenge screen
+        const playerName = document.getElementById("playerName").value;
+        const playerNameDisplay = document.getElementById("player-name-display");
+        playerNameDisplay.textContent = `Jogador ${playerName}`;
+
+        // Initialize scoreboard
+        const scoreValue = document.getElementById("score-value");
+        const timeValue = document.getElementById("time-value");
+        let score = 0;
+        let seconds = 0;
+        let timerInterval;
+
+        function updateTimer() {
+          seconds++;
+          const mins = Math.floor(seconds / 60);
+          const secs = seconds % 60;
+          timeValue.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Reset score and time
+        score = 0;
+        scoreValue.textContent = score;
+        seconds = 0;
+        timeValue.textContent = "00:00";
+
+        // Clear any existing timer
+        if (timerInterval) {
+          clearInterval(timerInterval);
+        }
+
+        // Start timer interval
+        timerInterval = setInterval(updateTimer, 1000);
+
+        // Store timerInterval globally to clear later if needed
+        window.challengeTimerInterval = timerInterval;
+        window.challengeScore = score;
+        window.updateScore = function(points) {
+          window.challengeScore += points;
+          scoreValue.textContent = window.challengeScore;
+        };
       }
     </script>
+
+    <style>
+      #floating-menu {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 10px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 1000;
+      }
+      #floating-menu button {
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+      #btn-restart {
+        background-color: #1e90ff;
+      }
+      #btn-restart:hover {
+        background-color: #63b3ed;
+      }
+      #btn-check-sequence {
+        background-color: #28a745;
+      }
+      #btn-check-sequence:hover {
+        background-color: #5cd65c;
+      }
+      #btn-next-challenge {
+        background-color: #ff8c00;
+      }
+      #btn-next-challenge:hover {
+        background-color: #ffb84d;
+      }
+      #btn-exit-game {
+        background-color: #dc3545;
+      }
+      #btn-exit-game:hover {
+        background-color: #e57373;
+      }
+    </style>
+
+    <script>
+      // Make scoreboard draggable
+      const scoreboard = document.getElementById('scoreboard');
+      let isDragging = false;
+      let dragOffsetX = 0;
+      let dragOffsetY = 0;
+
+      scoreboard.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        dragOffsetX = e.clientX - scoreboard.offsetLeft;
+        dragOffsetY = e.clientY - scoreboard.offsetTop;
+        scoreboard.style.transition = 'none';
+      });
+
+      document.addEventListener('mouseup', () => {
+        isDragging = false;
+        scoreboard.style.transition = '';
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+          let newX = e.clientX - dragOffsetX;
+          let newY = e.clientY - dragOffsetY;
+
+          // Keep scoreboard within viewport bounds
+          const maxX = window.innerWidth - scoreboard.offsetWidth;
+          const maxY = window.innerHeight - scoreboard.offsetHeight;
+          newX = Math.max(0, Math.min(newX, maxX));
+          newY = Math.max(0, Math.min(newY, maxY));
+
+          scoreboard.style.left = newX + 'px';
+          scoreboard.style.top = newY + 'px';
+        }
+      });
+
+      function goToNextChallenge() {
+        alert("Função Siga para Próximo Desafio ainda não implementada.");
+      }
+
+      function exitGame() {
+        alert("Função Sair do Jogo ainda não implementada.");
+      }
+
+      function clearSequence() {
+        const inputs = document.querySelectorAll("#sequence-table .seq-input");
+        inputs.forEach(input => input.value = "");
+      }
+      </script>
+
+    <style>
+      #melodia-button {
+        position: absolute;
+       top: 75%;
+        left: 56%;
+        transform: translate(-50%, -50%);
+        background-color: #1b0791;
+        color: white;
+        padding: 12px 24px;
+        font-size: 18px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(220, 53, 69, 0.6);
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        z-index: 1100;
+      }
+      #melodia-button:hover {
+        background-color: #e57373;
+        transform: scale(1.05);
+      }
+      #melodia-button:active {
+        transform: scale(0.95);
+      }
+      #melodia-button strong {
+        font-weight: bold;
+      }
+      @keyframes moveButton {
+        0% { transform: translate(0, 0); }
+        25% { transform: translate(5px, 0); }
+        50% { transform: translate(-5px, 0); }
+        75% { transform: translate(5px, 0); }
+        100% { transform: translate(0, 0); }
+      }
+      #toque-button {
+        position: absolute;
+        top: 75%;
+        left: 45%;
+        transform: translate(-50%, -50%);
+        background-color: #7a0404;
+        color: white;
+        padding: 12px 24px;
+        font-size: 18px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(220, 53, 69, 0.6);
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        z-index: 1100;
+      }
+      #toque-button:hover {
+        background-color: #e57373;
+        transform: scale(1.05);
+      }
+      #toque-button:active {
+        transform: scale(0.95);
+      }
+      #toque-button strong {
+        font-weight: bold;
+      }
+    </style>
+
+      <script>
+      function melodiaAction() {
+        const inputs = document.querySelectorAll("#sequence-table .seq-input");
+        for (let input of inputs) {
+          if (input.value === "") {
+            input.value = "&";
+            break;
+          }
+        }
+      }
+      </script>
+
+      <script>
+      function toqueAction() {
+        const inputs = document.querySelectorAll("#sequence-table .seq-input");
+        for (let input of inputs) {
+          if (input.value === "") {
+            input.value = "#";
+            break;
+          }
+        }
+      }
+      </script>
   </body>
 </html>
