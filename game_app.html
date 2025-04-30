@@ -50,6 +50,8 @@
         left: 1150px;
         font-family: Fantasy;
         font-weight: bold;
+        font-size: 55px;
+        color: rgb(0, 128, 0);
         border-radius: 8px;
         user-select: none;        
         z-index: 1001;
@@ -83,6 +85,9 @@
         border: 2px solid rgb(224, 188, 32);
         border-radius: 8px;
         transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+      #playerName {
+        margin-top: 60px;
       }
       #sequence-table .seq-input {
         text-align: center;
@@ -143,11 +148,11 @@
         }
       }
       #greeting-game {
+        font-family: 'Black Ops One';
         font-size: 55px;
-        margin-top: 20px;
         position: absolute;
-        top: 20px;
-        left: 50%;
+        top: 3%;
+        left: 40%;
         transform: translateX(-50%);
       }
       #restart-button {
@@ -206,8 +211,8 @@
       <h2 id="greeting" style="display: none"></h2>
       <div id="info-text">
         SOFTWARE DE APOIO EDUCACIONAL PARA AUXÍLIO NO TRABALHO COM PORTADORES DO TRANSTORNO DO DÉFICIT DE ATENÇÃO E HIPERATIVIDADE (TDAH) <br />
-        Projeto Integrador UNIVERSIDADE VIRTUAL DO ESTADO DE SÃO PAULO <br />
-<span style="color: yellow; font-weight: bold;">Criado pelo grupo DRP03-PJI110-SALA 002 GRUPO-001</span>
+        Projeto Integrador - UNIVESP - UNIVERSIDADE VIRTUAL DO ESTADO DE SÃO PAULO <br />
+<span style="color: yellow; font-weight: bold;">Protótipo desenvolvido por grupo DRP03-PJI110-SALA 002-GRUPO 001</span>
       </div>
     </div>
 
@@ -217,22 +222,23 @@
         Seu navegador não suporta o elemento de áudio.
       </audio>
       <h2 id="greeting-game" style="display: none"></h2>
-      <h2 style="color: rgb(174, 225, 161); font-weight: bold">
-        1º ► Ouça a música. <br />
+      <h2 style="color: rgb(174, 225, 161); font-weight: bold; position: absolute; top: 30%; left: 40%; transform: translate(-50%)">
+        1º ► Ouça a música. <br /> 
         <br />
         2° ► Durante a música aperte a tecla "TOQUE (#)" para som curto ou a tecla "MELODIA (&)"  <br />
         som musical, de acordo com o tipo do som que você está ouvindo. <br />
+        Altere a velocidade do audio se precisar. <br />
         <br />
         3° ► Monte a sua sequência de ações. <br />
         <br />
         4° ► Verifique se a sua sequência digitada está correta. <br />
         <br />
         5° ► Se a sua sequência estiver correta, parabéns, então aperte a tecla <br />
-             "SIGA PARA O PRÓXIMO DESAFIO" e boa sorte em um novo DESAFIO!!!.
+             "SIGA PARA O PRÓXIMO DESAFIO" e boa sorte em seu novo DESAFIO!!!.
       </h2>
-      <img src="./images/som2.webp" alt="Background GIF" style="max-width: 100%; height: auto; position: absolute; top: 58%; left: 36%; transform: translateX(-50%);" />
+      <img src="./images/som2.webp" alt="Background GIF" style="max-width: 100%; height: auto; position: absolute; top: 61%; left: 43%; transform: translateX(-50%);" />
       <img src="./images/1566507_d178c.gif" alt="New GIF" style="position: absolute; top: 60%; right: 08%; transform: translateY(-50%);" />
-      <button id="instruction-button" style="background-color: red; color: white; font-weight: bold; position: absolute; left: 35%; top: 26%; font-size: 30px; transform: translate(-50%, -50%);" onclick="showInstructions()">
+      <button id="instruction-button" style="background-color: red; color: white; font-weight: bold; position: absolute; left: 40%; top: 28%; font-size: 30px; transform: translate(-50%, -50%);" onclick="showInstructions()">
         COMO FAÇO PARA JOGAR?
       </button>
       <img src="./images/seta3.gif" alt="Seta" style="position: absolute; bottom: 15px; left: 80%; transform: translateX(-66%); width: 80px;">
@@ -247,7 +253,7 @@
         <div><strong>Pontuação:</strong> <span id="score-value">0</span></div>
         <div><strong>Tempo:</strong> <span id="time-value">00:00</span></div>
       </div>
-      <h1 id="challenge-title" style="color: rgb(155, 239, 30); font-size: 100px; position: relative; left: 30px;">Desafio 1</h1>
+          <h1 id="challenge-title" style="color: rgb(155, 239, 30); font-size: 100px; position: relative; left: 30px;">Desafio 1</h1>
       
       <audio id="challenge-audio" controls style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; height: 40px; z-index: 1100; border-radius: 8px; box-shadow: 0 0 10px rgb(224, 188, 32);">
         <source src="./som/Adams Family.mp3" type="audio/mpeg" />
@@ -261,7 +267,67 @@
         <button id="btn-restart" onclick="restartGame()">Reinicia Jogo</button>
       <button id="btn-check-sequence" onclick="checkSequence()">Verifica Sequência</button>
       <div id="sequence-result" style="position: fixed; top: 50%; right: 20px; transform: translateY(-50%); color: rgb(224, 188, 32); font-size: 24px; font-weight: bold; width: 350px; text-align: center; z-index: 1100;"></div>
-        <button id="btn-next-challenge" onclick="goToNextChallenge()">Siga para Próximo Desafio</button>
+      <button id="btn-next-challenge">Siga para Próximo Desafio</button>
+      <script>
+        function goToNextChallenge() {
+          // Hide challenge screen
+          document.getElementById("challenge-screen").style.display = "none";
+          // Show screen 4
+          document.getElementById("screen-4").style.display = "block";
+
+          // Stop audio on screen 3
+          const screen3Audio = document.getElementById("challenge-audio");
+          if (screen3Audio) {
+            screen3Audio.pause();
+            screen3Audio.currentTime = 0;
+          }
+
+          // Play audio on screen 4 automatically
+          const screen4Audio = document.getElementById("screen4-audio");
+          if (screen4Audio) {
+            screen4Audio.currentTime = 0;
+            screen4Audio.play().catch(() => {
+              // Autoplay might be blocked by browser, handle if needed
+            });
+          }
+
+          // Add screen 3 score to screen 4 score
+          const screen3Score = window.challengeScore || 0;
+          const screen4ScoreValue = document.getElementById("score-value");
+          if (screen4ScoreValue) {
+            let screen4Score = parseInt(screen4ScoreValue.textContent) || 0;
+            screen4Score += screen3Score;
+            screen4ScoreValue.textContent = screen4Score;
+          }
+
+          // Continue timer from screen 3 to screen 4
+          const screen4TimeValue = document.getElementById("time-value");
+          if (screen4TimeValue) {
+            let totalSeconds = 0;
+            const timeParts = screen4TimeValue.textContent.split(":");
+            if (timeParts.length === 2) {
+              totalSeconds = parseInt(timeParts[0]) * 60 + parseInt(timeParts[1]);
+            }
+            totalSeconds += window.challengeTimerSeconds || 0;
+
+            function updateTimer() {
+              totalSeconds++;
+              const mins = Math.floor(totalSeconds / 60);
+              const secs = totalSeconds % 60;
+              screen4TimeValue.textContent = `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+              window.challengeTimerSeconds = totalSeconds;
+            }
+
+            if (window.challengeTimerInterval) {
+              clearInterval(window.challengeTimerInterval);
+            }
+            updateTimer();
+            window.challengeTimerInterval = setInterval(updateTimer, 1000);
+          }
+        }
+
+        document.getElementById("btn-next-challenge").onclick = goToNextChallenge;
+      </script>
         <button id="btn-exit-game" onclick="exitGame()">Sair do Jogo</button>
       </div>      
       <div style="display: flex; align-items: center; gap: 40px; position: relative; top: -5%; left: 20px; transform: translateY(-30%); width: auto;">
@@ -283,6 +349,21 @@
           <tr><td class="secret-seq-cell">&amp;</td></tr>
           <tr><td class="secret-seq-cell">#</td></tr>
         </table>    
+
+      <script>
+        function copySecretSequence() {
+          const secretTableScreen3 = document.querySelector("#challenge-screen #secret-sequence-table");
+          const secretTableScreen4 = document.querySelector("#screen-4 #secret-sequence-table-4");
+          if (secretTableScreen3 && secretTableScreen4) {
+            secretTableScreen4.innerHTML = secretTableScreen3.innerHTML;
+          }
+        }
+
+        // Call copySecretSequence when transitioning to screen 4
+        document.getElementById("btn-next-challenge").addEventListener("click", () => {
+          copySecretSequence();
+        });
+      </script>
         <table id="sequence-table" style="border-collapse: collapse; user-select: none; position: relative; top: -5%; left: 20px; transform: translateY(1%); width: auto;">
           <caption style="color: rgb(224, 188, 32); font-weight: bold; font-size: 30px; margin-bottom: 10px;">SEQUÊNCIA DO JOGADOR</caption>
           <tr><td><input type="text" maxlength="1" class="seq-input" /></td></tr>
@@ -365,8 +446,8 @@
       </div>
       <h1 id="challenge-title" style="color: rgb(155, 239, 30); font-size: 100px; position: relative; left: 30px;">Desafio 2</h1>
       
-      <audio id="challenge-audio" controls style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; height: 40px; z-index: 1100; border-radius: 8px; box-shadow: 0 0 10px rgb(224, 188, 32);">
-        <source src="./som/Adams Family.mp3" type="audio/mpeg" />
+      <audio id="screen4-audio" controls autoplay style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; height: 40px; z-index: 1100; border-radius: 8px; box-shadow: 0 0 10px rgb(224, 188, 32);">
+        <source src="./som/Pink panther.mp3" type="audio/mpeg" />
         Seu navegador não suporta o elemento de áudio.
       </audio>
 
@@ -383,21 +464,21 @@
       <div style="display: flex; align-items: center; gap: 40px; position: relative; top: -5%; left: 20px; transform: translateY(-30%); width: auto;">
         <div id="animated-rectangle" title="Retângulo Interativo"></div>
         <img id="secret-image" src="./images/secreto.png" alt="Imagem Secreta" />
-        <table id="secret-sequence-table" style="border-collapse: collapse; user-select: none; width: 10%;">
-          <caption style="color: rgb(224, 188, 32); font-weight: bold; font-size: 30px; margin-bottom: 10px;">SEQUÊNCIA SECRETA</caption>
+        <table id="secret-sequence-table-4" style="border-collapse: collapse; user-select: none; width: 10%;">
+          <caption style="color: rgb(224, 188, 32); font-weight: bold; font-size: 30px;top: 50%; margin-bottom: 10px;">SEQUÊNCIA SECRETA</caption>
           <tr><td class="secret-seq-cell">&amp;</td></tr>
-          <tr><td class="secret-seq-cell">#</td></tr>
-          <tr><td class="secret-seq-cell">#</td></tr>
           <tr><td class="secret-seq-cell">&amp;</td></tr>
-          <tr><td class="secret-seq-cell">#</td></tr>
-          <tr><td class="secret-seq-cell">#</td></tr>
           <tr><td class="secret-seq-cell">&amp;</td></tr>
           <tr><td class="secret-seq-cell">&amp;</td></tr>
           <tr><td class="secret-seq-cell">&amp;</td></tr>
           <tr><td class="secret-seq-cell">#</td></tr>
-          <tr><td class="secret-seq-cell">#</td></tr>
           <tr><td class="secret-seq-cell">&amp;</td></tr>
-          <tr><td class="secret-seq-cell">#</td></tr>
+          <tr><td class="secret-seq-cell">&amp;</td></tr>
+          <tr><td class="secret-seq-cell">&amp;</td></tr>
+          <tr><td class="secret-seq-cell">&amp;</td></tr>
+          <tr><td class="secret-seq-cell">&amp;</td></tr>
+          <tr><td class="secret-seq-cell">&amp;</td></tr>
+          <tr><td class="secret-seq-cell">&amp;</td></tr>
         </table>    
         <table id="sequence-table" style="border-collapse: collapse; user-select: none; position: relative; top: -5%; left: 20px; transform: translateY(1%); width: auto;">
           <caption style="color: rgb(224, 188, 32); font-weight: bold; font-size: 30px; margin-bottom: 10px;">SEQUÊNCIA DO JOGADOR</caption>
@@ -420,7 +501,7 @@
         #animated-rectangle {
           width: 180px;
           height: 600px;
-          background-color: rgba(77, 208, 240, 1);
+          background-color: rgba(77, 208, 240, 0.7);
           border-radius: 10px;
           margin-right: 20px;
           margin-bottom: 10px;
@@ -432,9 +513,9 @@
           z-index: 1002;
         }
         #animated-rectangle:hover {
-          background-color: rgba(77, 208, 240, 1);
+          background-color: rgba(77, 208, 240, 0,8);
           transform: scale(1.1);
-          box-shadow: 0 0 15px rgba(77, 208, 240, 1);
+          box-shadow: 0 0 15px rgba(77, 208, 240, 0,6);
         }
         @keyframes pulseGlow {
           0% {
@@ -502,9 +583,9 @@
 
       function startGame() {
         const playerName = document.getElementById("playerName").value;
-        document.getElementById("greeting").textContent = `Seja bem-vindo ao jogo, ${playerName}!`;
+        document.getElementById("greeting").textContent = `${playerName}, seja bem vindo ao Jogo SOM E AÇÃO!!!`;
         document.getElementById("greeting").style.display = "block";
-        document.getElementById("greeting-game").textContent = `Seja bem-vindo ao jogo, ${playerName}!`;
+        document.getElementById("greeting-game").textContent = `${playerName}, seja bem vindo ao Jogo SOM E AÇÃO!!!`;
         document.getElementById("greeting-game").style.display = "block";
         document.getElementById("initial-screen").style.display = "none";
         document.getElementById("game-play-screen").style.display = "flex";
@@ -556,10 +637,10 @@
           elem.msRequestFullscreen();
         }
 
-        const gameAudio = document.getElementById("initial-audio");
-        if (gameAudio) {
-          gameAudio.pause();
-          gameAudio.currentTime = 0;
+        const initialAudio = document.getElementById("initial-audio");
+        if (initialAudio) {
+          initialAudio.pause();
+          initialAudio.currentTime = 0;
         }
 
         const audio = document.getElementById("challenge-audio");
@@ -709,14 +790,47 @@
         // Show screen 4
         document.getElementById("screen-4").style.display = "block";
       }
-
       function exitGame() {
         alert("Função Sair do Jogo ainda não implementada.");
       }
 
+      function goToNextChallenge() {
+        // Hide challenge screen
+        document.getElementById("challenge-screen").style.display = "none";
+        // Show screen 4
+        document.getElementById("screen-4").style.display = "block";
+
+        // Stop audio on screen 3
+        const screen3Audio = document.getElementById("challenge-audio");
+        if (screen3Audio) {
+          screen3Audio.pause();
+          screen3Audio.currentTime = 0;
+        }
+
+        // Play audio on screen 4 automatically
+        const screen4Audio = document.getElementById("screen4-audio");
+        if (screen4Audio) {
+          screen4Audio.currentTime = 0;
+          screen4Audio.play().catch(() => {
+            // Autoplay might be blocked by browser, handle if needed
+          });
+        }
+      }
+
+      document.getElementById("btn-next-challenge").onclick = goToNextChallenge;
+
       function clearSequence() {
         const inputs = document.querySelectorAll("#sequence-table .seq-input");
         inputs.forEach(input => input.value = "");
+        // Reset score to zero when clearing sequence
+        const scoreValue = document.getElementById("score-value");
+        if (scoreValue) {
+          scoreValue.textContent = "0";
+        }
+        // Also reset the global score variable if exists
+        if (window.challengeScore !== undefined) {
+          window.challengeScore = 0;
+        }
       }
 
       function checkSequence() {
@@ -744,8 +858,16 @@
 
         const resultDiv = document.getElementById("sequence-result");
         if (secretSequence === playerSequence) {
-          resultDiv.innerHTML = '<span id="success-message" class="animated-success" tabindex="0" role="button" aria-label="Parabéns, você acertou a sequência. Siga para o próximo desafio.">PARABÉNS, VOCÊ ACERTOU A SEQUÊNCIA!!! SIGA PARA O PRÓXIMO DESAFIO.</span>';
-          resultDiv.style.color = "rgb(32, 224, 125)"; // greenish color
+          resultDiv.innerHTML = '<span id="success-message" class="animated-success" tabindex="0" role="button" aria-label="Parabéns, você acertou a sequência. Siga para o próximo desafio.">PARABÉNS, VOCÊ ACERTOU A SEQUÊNCIA... SIGA PARA O PRÓXIMO DESAFIO!!!</span>';
+          resultDiv.style.color = "green";
+          resultDiv.style.position = "fixed";
+          resultDiv.style.top = "50%";
+          resultDiv.style.right = "0";
+          resultDiv.style.transform = "translateY(-50%)";
+          resultDiv.style.width = "350px";
+          resultDiv.style.textAlign = "center";
+          resultDiv.style.fontWeight = "bold";
+          resultDiv.style.fontSize = "24px";
           const successMessage = document.getElementById("success-message");
           successMessage.onclick = function() {
             const nextChallengeBtn = document.getElementById("btn-next-challenge");
