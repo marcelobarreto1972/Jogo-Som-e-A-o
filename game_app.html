@@ -333,7 +333,7 @@
       <div style="display: flex; align-items: center; gap: 40px; position: relative; top: -5%; left: 20px; transform: translateY(-30%); width: auto;">
         <div id="animated-rectangle" title="Retângulo Interativo"></div>
         <img id="secret-image" src="./images/secreto.png" alt="Imagem Secreta" />
-        <table id="secret-sequence-table" style="border-collapse: collapse; user-select: none; width: 10%;">
+        <table id="secret-sequence-table-3" style="border-collapse: collapse; user-select: none; width: 10%;">
           <caption style="color: rgb(224, 188, 32); font-weight: bold; font-size: 30px; margin-bottom: 10px;">SEQUÊNCIA SECRETA</caption>
           <tr><td class="secret-seq-cell">&amp;</td></tr>
           <tr><td class="secret-seq-cell">#</td></tr>
@@ -364,7 +364,7 @@
           copySecretSequence();
         });
       </script>
-        <table id="sequence-table" style="border-collapse: collapse; user-select: none; position: relative; top: -5%; left: 20px; transform: translateY(1%); width: auto;">
+        <table id="sequence-table-3" style="border-collapse: collapse; user-select: none; position: relative; top: -5%; left: 20px; transform: translateY(1%); width: auto;">
           <caption style="color: rgb(224, 188, 32); font-weight: bold; font-size: 30px; margin-bottom: 10px;">SEQUÊNCIA DO JOGADOR</caption>
           <tr><td><input type="text" maxlength="1" class="seq-input" /></td></tr>
           <tr><td><input type="text" maxlength="1" class="seq-input" /></td></tr>
@@ -385,7 +385,7 @@
         #animated-rectangle {
           width: 180px;
           height: 600px;
-          background-color: rgba(77, 208, 240, 1);
+          background-color: rgba(77, 208, 240, 0.9);
           border-radius: 10px;
           margin-right: 20px;
           margin-bottom: 10px;
@@ -397,9 +397,9 @@
           z-index: 1002;
         }
         #animated-rectangle:hover {
-          background-color: rgba(77, 208, 240, 1);
+          background-color: rgba(77, 208, 240, 0.8);
           transform: scale(1.1);
-          box-shadow: 0 0 15px rgba(77, 208, 240, 1);
+          box-shadow: 0 0 15px rgba(77, 208, 240, 0.7);
         }
         @keyframes pulseGlow {
           0% {
@@ -409,10 +409,10 @@
             box-shadow: 0 0 25px rgba(77, 208, 240, 1);
           }
         }
-        #secret-sequence-table .secret-seq-cell {
+        #secret-sequence-table1 .secret-seq-cell {
           text-align: center;
           font-weight: bold;
-          font-size: 15px;
+          font-size: 30px;
           background-color: black;
           color: rgb(224, 188, 32);
           border: 2px solid rgb(224, 188, 32);
@@ -466,21 +466,21 @@
         <img id="secret-image" src="./images/secreto.png" alt="Imagem Secreta" />
         <table id="secret-sequence-table-4" style="border-collapse: collapse; user-select: none; width: 10%;">
           <caption style="color: rgb(224, 188, 32); font-weight: bold; font-size: 30px; margin-bottom: 10px;">SEQUÊNCIA SECRETA</caption>
-          <tr><td class="secret-seq-cell"></td></tr>
-          <tr><td class="secret-seq-cell"></td></tr>
-          <tr><td class="secret-seq-cell"></td></tr>
-          <tr><td class="secret-seq-cell"></td></tr>
-          <tr><td class="secret-seq-cell"></td></tr>
-          <tr><td class="secret-seq-cell"></td></tr>
-          <tr><td class="secret-seq-cell"></td></tr>
-          <tr><td class="secret-seq-cell"></td></tr>
-          <tr><td class="secret-seq-cell"></td></tr>
-          <tr><td class="secret-seq-cell"></td></tr>
-          <tr><td class="secret-seq-cell"></td></tr>
-          <tr><td class="secret-seq-cell"></td></tr>
-          <tr><td class="secret-seq-cell"></td></tr>
+          <tr><td class="secret-seq-cell">#</td></tr>
+          <tr><td class="secret-seq-cell">#</td></tr>
+          <tr><td class="secret-seq-cell">#</td></tr>
+          <tr><td class="secret-seq-cell">#</td></tr>
+          <tr><td class="secret-seq-cell">#</td></tr>
+          <tr><td class="secret-seq-cell">#</td></tr>
+          <tr><td class="secret-seq-cell">#</td></tr>
+          <tr><td class="secret-seq-cell">#</td></tr>
+          <tr><td class="secret-seq-cell">#</td></tr>
+          <tr><td class="secret-seq-cell">#</td></tr>
+          <tr><td class="secret-seq-cell">#</td></tr>
+          <tr><td class="secret-seq-cell">#</td></tr>
+          <tr><td class="secret-seq-cell">#</td></tr>
         </table>    
-        <table id="sequence-table" style="border-collapse: collapse; user-select: none; position: relative; top: -5%; left: 20px; transform: translateY(1%); width: auto;">
+        <table id="sequence-table-4" style="border-collapse: collapse; user-select: none; position: relative; top: -5%; left: 20px; transform: translateY(1%); width: auto;">
           <caption style="color: rgb(224, 188, 32); font-weight: bold; font-size: 30px; margin-bottom: 10px;">SEQUÊNCIA DO JOGADOR</caption>
           <tr><td><input type="text" maxlength="1" class="seq-input" /></td></tr>
           <tr><td><input type="text" maxlength="1" class="seq-input" /></td></tr>
@@ -499,9 +499,9 @@
       </div>
       <style>
         #animated-rectangle {
-          width: 180px;
-          height: 600px;
-          background-color: rgba(77, 208, 240, 1);
+          width: 90px;
+          height: 300px;
+          background-color: rgba(77, 208, 240, 0.8);
           border-radius: 10px;
           margin-right: 20px;
           margin-bottom: 10px;
@@ -513,9 +513,9 @@
           z-index: 1002;
         }
         #animated-rectangle:hover {
-          background-color: rgba(77, 208, 240, 1);
+          background-color: rgba(77, 208, 240, 0.7);
           transform: scale(1.1);
-          box-shadow: 0 0 15px rgba(77, 208, 240, 1);
+          box-shadow: 0 0 15px rgba(77, 208, 240, 0.6);
         }
         @keyframes pulseGlow {
           0% {
@@ -528,7 +528,7 @@
         #secret-sequence-table .secret-seq-cell {
           text-align: center;
           font-weight: bold;
-          font-size: 15px;
+          font-size: 30px;
           background-color: black;
           color: rgb(224, 188, 32);
           border: 2px solid rgb(224, 188, 32);
@@ -578,6 +578,14 @@
                 // Autoplay might be blocked by browser, handle if needed
               });
             }, 3000);
+          }
+
+          // Start timer automatically if screen-4 is visible on page load
+          const screen4 = document.getElementById("screen-4");
+          if (screen4 && screen4.style.display !== "none") {
+            if (typeof startChallenge2Timer === "function") {
+              startChallenge2Timer();
+            }
           }
         });
 
@@ -658,12 +666,12 @@
 
         audio.play();
 
-        // Set player name display on challenge screen
+        // Set player name display on challenge screen - nome do jogador
         const playerName = document.getElementById("playerName").value;
         const playerNameDisplay = document.getElementById("player-name-display");
         playerNameDisplay.textContent = `Jogador ${playerName}`;
 
-        // Initialize scoreboard
+        // Initialize scoreboard - placar
         const scoreValue = document.getElementById("score-value");
         const timeValue = document.getElementById("time-value");
         let score = 0;
@@ -677,13 +685,13 @@
           timeValue.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
         }
 
-        // Reset score and time
+        // Reset score and time - reset placar e tempo
         score = 0;
         scoreValue.textContent = score;
         seconds = 0;
         timeValue.textContent = "00:00";
 
-        // Clear any existing timer
+        // Clear any existing timer - limpa o tempo de jogo
         if (timerInterval) {
           clearInterval(timerInterval);
         }
@@ -815,12 +823,57 @@
             // Autoplay might be blocked by browser, handle if needed
           });
         }
+
+        // Add screen 3 score to screen 4 score
+        const screen3Score = window.challengeScore || 0;
+        const screen4ScoreValue = document.getElementById("score-value");
+        if (screen4ScoreValue) {
+          let screen4Score = parseInt(screen4ScoreValue.textContent) || 0;
+          screen4Score = screen3Score;
+          screen4ScoreValue.textContent = screen4Score;
+        }
+
+        // Set player name display on screen 4 - nome do jogador
+        const playerName = document.getElementById("playerName").value;
+        const playerNameDisplayScreen4 = document.querySelector("#screen-4 #player-name-display");
+        if (playerNameDisplayScreen4) {
+          playerNameDisplayScreen4.textContent = `Jogador ${playerName}`;
+        }
+
+        // Start the timer for challenge 2 screen
+        startChallenge2Timer();
+      }
+
+      function startChallenge2Timer() {
+        const screen4TimeValue = document.getElementById("time-value");
+        if (screen4TimeValue) {
+          let totalSeconds = 0;
+          const timeParts = screen4TimeValue.textContent.split(":");
+          if (timeParts.length === 2) {
+            totalSeconds = parseInt(timeParts[0]) * 60 + parseInt(timeParts[1]);
+          }
+          totalSeconds += window.challengeTimerSeconds || 0;
+
+          function updateTimer() {
+            totalSeconds++;
+            const mins = Math.floor(totalSeconds / 60);
+            const secs = totalSeconds % 60;
+            screen4TimeValue.textContent = `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+            window.challengeTimerSeconds = totalSeconds;
+          }
+
+          if (window.challengeTimerInterval) {
+            clearInterval(window.challengeTimerInterval);
+          }
+          updateTimer();
+          window.challengeTimerInterval = setInterval(updateTimer, 1000);
+        }
       }
 
       document.getElementById("btn-next-challenge").onclick = goToNextChallenge;
 
       function clearSequence() {
-        const inputs = document.querySelectorAll("#sequence-table .seq-input");
+        const inputs = document.querySelectorAll("#sequence-table-3 .seq-input");
         inputs.forEach(input => input.value = "");
         // Reset score to zero when clearing sequence
         const scoreValue = document.getElementById("score-value");
@@ -835,7 +888,7 @@
 
       function checkSequence() {
         const secretCells = document.querySelectorAll("#secret-sequence-table .secret-seq-cell");
-        const playerInputs = document.querySelectorAll("#sequence-table .seq-input");
+        const playerInputs = document.querySelectorAll("#sequence-table-3 .seq-input");
         let secretSequence = "";
         let playerSequence = "";
 
@@ -858,7 +911,7 @@
 
         const resultDiv = document.getElementById("sequence-result");
         if (secretSequence === playerSequence) {
-          resultDiv.innerHTML = '<span id="success-message" class="animated-success" tabindex="0" role="button" aria-label="Parabéns, você acertou a sequência. Siga para o próximo desafio.">PARABÉNS, VOCÊ ACERTOU A SEQUÊNCIA... SIGA PARA O PRÓXIMO DESAFIO!!!</span>';
+          resultDiv.innerHTML = '<span id="success-message" tabindex="0" role="button" aria-label="Parabéns, você acertou a sequência. Siga para o próximo desafio.">PARABÉNS, VOCÊ ACERTOU A SEQUÊNCIA... SIGA PARA O PRÓXIMO DESAFIO!!!</span>';
           resultDiv.style.color = "green";
           resultDiv.style.position = "fixed";
           resultDiv.style.top = "50%";
@@ -867,7 +920,7 @@
           resultDiv.style.width = "350px";
           resultDiv.style.textAlign = "center";
           resultDiv.style.fontWeight = "bold";
-          resultDiv.style.fontSize = "24px";
+          resultDiv.style.fontSize = "30px";
           const successMessage = document.getElementById("success-message");
           successMessage.onclick = function() {
             const nextChallengeBtn = document.getElementById("btn-next-challenge");
@@ -883,8 +936,16 @@
             }
           };
         } else {
-          resultDiv.innerHTML = '<span id="error-message" class="animated-error" tabindex="0" role="button" aria-label="Você errou a sequência. Tente novamente.">VOCÊ ERROU A SEQUÊNCIA... TENTE NOVAMENTE.</span>';
-          resultDiv.style.color = "rgb(224, 32, 32)"; // reddish color
+          resultDiv.innerHTML = '<span id="error-message" tabindex="0" role="button" aria-label="Você errou a sequência. Tente novamente.">VOCÊ ERROU A SEQUÊNCIA... TENTE NOVAMENTE.</span>';
+          resultDiv.style.color = "red";
+          resultDiv.style.position = "fixed";
+          resultDiv.style.top = "50%";
+          resultDiv.style.right = "0";
+          resultDiv.style.transform = "translateY(-50%)";
+          resultDiv.style.width = "350px";
+          resultDiv.style.textAlign = "center";
+          resultDiv.style.fontWeight = "bold";
+          resultDiv.style.fontSize = "30px";
           const errorMessage = document.getElementById("error-message");
           errorMessage.onclick = function() {
             clearSequence();
@@ -963,7 +1024,7 @@
 
       <script>
       function melodiaAction() {
-        const inputs = document.querySelectorAll("#sequence-table .seq-input");
+        const inputs = document.querySelectorAll("#sequence-table-3 .seq-input");
         for (let input of inputs) {
           if (input.value === "") {
             input.value = "&";
@@ -975,7 +1036,7 @@
 
       <script>
       function toqueAction() {
-        const inputs = document.querySelectorAll("#sequence-table .seq-input");
+        const inputs = document.querySelectorAll("#sequence-table-3 .seq-input");
         for (let input of inputs) {
           if (input.value === "") {
             input.value = "#";
