@@ -94,6 +94,22 @@
         font-weight: bold;
         font-size: 14px;
       }
+      #sequence-table-3 .seq-input {
+        text-align: center;
+        font-weight: bold;
+        font-size: 18px;
+        height: 30px;
+        line-height: 30px;
+        padding: 0;
+      }
+      #sequence-table-4 .seq-input {
+        text-align: center;
+        font-weight: bold;
+        font-size: 18px;
+        height: 30px;
+        line-height: 30px;
+        padding: 0;
+      }
       input:focus {
         border-color: rgb(255, 215, 0);
         box-shadow: 0 0 8px rgb(255, 215, 0);
@@ -267,9 +283,57 @@
         <button id="btn-restart" onclick="restartGame()">Reinicia Jogo</button>
       <button id="btn-check-sequence" onclick="checkSequence()">Verifica Sequência</button>
       <div id="sequence-result" style="position: fixed; top: 50%; right: 20px; transform: translateY(-50%); color: rgb(224, 188, 32); font-size: 24px; font-weight: bold; width: 350px; text-align: center; z-index: 1100;"></div>
-      <button id="btn-next-challenge">Siga para Próximo Desafio</button>
+      <button id="btn-next-challenge" disabled>Siga para Próximo Desafio</button>
       <script>
-        function goToNextChallenge() {
+      function goToNextChallenge() {
+        // Hide challenge screen
+        document.getElementById("challenge-screen").style.display = "none";
+        // Show screen 4
+        document.getElementById("screen-4").style.display = "block";
+
+        // Stop audio on screen 3
+        const screen3Audio = document.getElementById("challenge-audio");
+        if (screen3Audio) {
+          screen3Audio.pause();
+          screen3Audio.currentTime = 0;
+        }
+
+        // Play audio on screen 4 automatically
+        const screen4Audio = document.getElementById("screen4-audio");
+        if (screen4Audio) {
+          screen4Audio.currentTime = 0;
+          screen4Audio.play().catch(() => {
+            // Autoplay might be blocked by browser, handle if needed
+          });
+        }
+
+        // Add screen 3 score to screen 4 score
+        const screen3Score = window.challengeScore || 0;
+        const screen4ScoreValue = document.getElementById("score-value");
+        if (screen4ScoreValue) {
+          let screen4Score = parseInt(screen4ScoreValue.textContent) || 0;
+          screen4Score = screen3Score;
+          screen4ScoreValue.textContent = screen4Score;
+        }
+
+        // Set player name display on screen 4 - nome do jogador
+        const playerName = document.getElementById("playerName").value;
+        const playerNameDisplayScreen4 = document.querySelector("#screen-4 #player-name-display");
+        if (playerNameDisplayScreen4) {
+          playerNameDisplayScreen4.textContent = `Jogador ${playerName}`;
+        }
+
+        // Start the timer for challenge 2 screen
+        startChallenge2Timer();
+      }
+=======
+      function goToNextChallenge() {
+        if (document.getElementById("screen-4").style.display === "block") {
+          // Hide screen 4
+          document.getElementById("screen-4").style.display = "none";
+          // Show screen 5
+          document.getElementById("screen-5").style.display = "block";
+        } else {
           // Hide challenge screen
           document.getElementById("challenge-screen").style.display = "none";
           // Show screen 4
@@ -296,35 +360,21 @@
           const screen4ScoreValue = document.getElementById("score-value");
           if (screen4ScoreValue) {
             let screen4Score = parseInt(screen4ScoreValue.textContent) || 0;
-            screen4Score += screen3Score;
+            screen4Score = screen3Score;
             screen4ScoreValue.textContent = screen4Score;
           }
 
-          // Continue timer from screen 3 to screen 4
-          const screen4TimeValue = document.getElementById("time-value");
-          if (screen4TimeValue) {
-            let totalSeconds = 0;
-            const timeParts = screen4TimeValue.textContent.split(":");
-            if (timeParts.length === 2) {
-              totalSeconds = parseInt(timeParts[0]) * 60 + parseInt(timeParts[1]);
-            }
-            totalSeconds += window.challengeTimerSeconds || 0;
-
-            function updateTimer() {
-              totalSeconds++;
-              const mins = Math.floor(totalSeconds / 60);
-              const secs = totalSeconds % 60;
-              screen4TimeValue.textContent = `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
-              window.challengeTimerSeconds = totalSeconds;
-            }
-
-            if (window.challengeTimerInterval) {
-              clearInterval(window.challengeTimerInterval);
-            }
-            updateTimer();
-            window.challengeTimerInterval = setInterval(updateTimer, 1000);
+          // Set player name display on screen 4 - nome do jogador
+          const playerName = document.getElementById("playerName").value;
+          const playerNameDisplayScreen4 = document.querySelector("#screen-4 #player-name-display");
+          if (playerNameDisplayScreen4) {
+            playerNameDisplayScreen4.textContent = `Jogador ${playerName}`;
           }
+
+          // Start the timer for challenge 2 screen
+          startChallenge2Timer();
         }
+      }
 
         document.getElementById("btn-next-challenge").onclick = goToNextChallenge;
       </script>
@@ -498,7 +548,7 @@
         </table>
       </div>
       <style>
-        #animated-rectangle {
+        #animated-rectangle-3 {
           width: 90px;
           height: 300px;
           background-color: rgba(77, 208, 240, 0.8);
@@ -512,7 +562,7 @@
           transition: transform 0.3s ease, background-color 0.3s ease;
           z-index: 1002;
         }
-        #animated-rectangle:hover {
+        #animated-rectangle-3:hover {
           background-color: rgba(77, 208, 240, 0.7);
           transform: scale(1.1);
           box-shadow: 0 0 15px rgba(77, 208, 240, 0.6);
@@ -525,7 +575,7 @@
             box-shadow: 0 0 25px rgba(77, 208, 240, 1);
           }
         }
-        #secret-sequence-table .secret-seq-cell {
+        #secret-sequence-table-3 .secret-seq-cell {
           text-align: center;
           font-weight: bold;
           font-size: 30px;
@@ -539,7 +589,7 @@
           user-select: none;
           line-height: 40px;
         }
-        #secret-image {
+        #secret-image-3 {
           position: absolute;
           top: 24%;
           left: -3%;
@@ -873,7 +923,14 @@
       document.getElementById("btn-next-challenge").onclick = goToNextChallenge;
 
       function clearSequence() {
-        const inputs = document.querySelectorAll("#sequence-table-3 .seq-input");
+        let inputs;
+        if (document.getElementById("challenge-screen").style.display === "block") {
+          inputs = document.querySelectorAll("#sequence-table-3 .seq-input");
+        } else if (document.getElementById("screen-4").style.display === "block") {
+          inputs = document.querySelectorAll("#sequence-table-4 .seq-input");
+        } else {
+          inputs = [];
+        }
         inputs.forEach(input => input.value = "");
         // Reset score to zero when clearing sequence
         const scoreValue = document.getElementById("score-value");
@@ -887,8 +944,17 @@
       }
 
       function checkSequence() {
-        const secretCells = document.querySelectorAll("#secret-sequence-table .secret-seq-cell");
-        const playerInputs = document.querySelectorAll("#sequence-table-3 .seq-input");
+        let secretCells, playerInputs;
+        if (document.getElementById("challenge-screen").style.display === "block") {
+          secretCells = document.querySelectorAll("#secret-sequence-table-3 .secret-seq-cell");
+          playerInputs = document.querySelectorAll("#sequence-table-3 .seq-input");
+        } else if (document.getElementById("screen-4").style.display === "block") {
+          secretCells = document.querySelectorAll("#secret-sequence-table-4 .secret-seq-cell");
+          playerInputs = document.querySelectorAll("#sequence-table-4 .seq-input");
+        } else {
+          secretCells = [];
+          playerInputs = [];
+        }
         let secretSequence = "";
         let playerSequence = "";
 
@@ -910,6 +976,7 @@
         window.updateScore(scoreIncrement);
 
         const resultDiv = document.getElementById("sequence-result");
+        const nextChallengeBtn = document.getElementById("btn-next-challenge");
         if (secretSequence === playerSequence) {
           resultDiv.innerHTML = '<span id="success-message" tabindex="0" role="button" aria-label="Parabéns, você acertou a sequência. Siga para o próximo desafio.">PARABÉNS, VOCÊ ACERTOU A SEQUÊNCIA... SIGA PARA O PRÓXIMO DESAFIO!!!</span>';
           resultDiv.style.color = "green";
@@ -921,9 +988,11 @@
           resultDiv.style.textAlign = "center";
           resultDiv.style.fontWeight = "bold";
           resultDiv.style.fontSize = "30px";
+          if (nextChallengeBtn) {
+            nextChallengeBtn.disabled = false;
+          }
           const successMessage = document.getElementById("success-message");
           successMessage.onclick = function() {
-            const nextChallengeBtn = document.getElementById("btn-next-challenge");
             if (nextChallengeBtn) {
               nextChallengeBtn.click();
             } else {
@@ -946,6 +1015,9 @@
           resultDiv.style.textAlign = "center";
           resultDiv.style.fontWeight = "bold";
           resultDiv.style.fontSize = "30px";
+          if (nextChallengeBtn) {
+            nextChallengeBtn.disabled = true;
+          }
           const errorMessage = document.getElementById("error-message");
           errorMessage.onclick = function() {
             clearSequence();
@@ -1024,7 +1096,14 @@
 
       <script>
       function melodiaAction() {
-        const inputs = document.querySelectorAll("#sequence-table-3 .seq-input");
+        let inputs;
+        if (document.getElementById("challenge-screen").style.display === "block") {
+          inputs = document.querySelectorAll("#sequence-table-3 .seq-input");
+        } else if (document.getElementById("screen-4").style.display === "block") {
+          inputs = document.querySelectorAll("#sequence-table-4 .seq-input");
+        } else {
+          inputs = [];
+        }
         for (let input of inputs) {
           if (input.value === "") {
             input.value = "&";
@@ -1036,7 +1115,14 @@
 
       <script>
       function toqueAction() {
-        const inputs = document.querySelectorAll("#sequence-table-3 .seq-input");
+        let inputs;
+        if (document.getElementById("challenge-screen").style.display === "block") {
+          inputs = document.querySelectorAll("#sequence-table-3 .seq-input");
+        } else if (document.getElementById("screen-4").style.display === "block") {
+          inputs = document.querySelectorAll("#sequence-table-4 .seq-input");
+        } else {
+          inputs = [];
+        }
         for (let input of inputs) {
           if (input.value === "") {
             input.value = "#";
@@ -1045,5 +1131,50 @@
         }
       }
       </script>
+    <div id="screen-5" style="display:none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: black; overflow: hidden; z-index: 2000;">
+      <h1 id="construction-text" style="font-family: 'Black Ops One', cursive; font-size: 130px; color: #ff0000; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); cursor: pointer; user-select: none; animation: colorCycle 5s infinite alternate;">
+        PROTÓTIPO EM CONSTRUÇÃO
+      </h1>
+    </div>
+
+    <style>
+      @keyframes floatMove {
+        0% { transform: translate(0, 0); }
+        25% { transform: translate(20px, 10px); }
+        50% { transform: translate(-20px, 20px); }
+        75% { transform: translate(15px, -15px); }
+        100% { transform: translate(0, 0); }
+      }
+      #construction-text {
+        animation: colorCycle 5s infinite alternate, floatMove 10s infinite ease-in-out;
+      }
+    </style>
+
+    <script>
+      const constructionText = document.getElementById('construction-text');
+      let posX = window.innerWidth / 2;
+      let posY = window.innerHeight / 2;
+      let directionX = 1;
+      let directionY = 1;
+      const speed = 2;
+
+      function moveText() {
+        const rect = constructionText.getBoundingClientRect();
+        if (posX + rect.width >= window.innerWidth || posX <= 0) directionX *= -1;
+        if (posY + rect.height >= window.innerHeight || posY <= 0) directionY *= -1;
+        posX += speed * directionX;
+        posY += speed * directionY;
+        constructionText.style.left = posX + 'px';
+        constructionText.style.top = posY + 'px';
+        requestAnimationFrame(moveText);
+      }
+
+      constructionText.addEventListener('mouseenter', () => {
+        directionX = -directionX;
+        directionY = -directionY;
+      });
+
+      moveText();
+    </script>
   </body>
 </html>
