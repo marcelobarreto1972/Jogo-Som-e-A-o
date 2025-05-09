@@ -5,5 +5,5 @@ Para instalar no computador:
 2º -> Criar subpastas IMAGES e SOM
 3º -> Copiar arquivos de audio (.mp3) para a subpasta SOM
 4º -> Copiar arquivos de imagem (.gif e .webp) para a subpasta IMAGES
-5º -> Copiar na pasta principal o arquivo app_game.html
-6º -> Rodar o arquivo app_game.html
+5º -> Copiar na pasta principal o arquivo aplivativo_de_jogo.html
+6º -> Rodar o arquivo aplivativo_de_jogo.html
